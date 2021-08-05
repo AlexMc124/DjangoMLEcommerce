@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CsvFileAttributes">
+    <option name="attributeMap">
+      <map>
+        <entry key="\cart\models.py">
+          <value>
+            <Attribute>
+              <option name="separator" value=":" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\cart\urls.py">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\cart\views.py">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\data\products.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\data\reviews.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\db.sqlite3">
+          <value>
+            <Attribute>
+              <option name="separator" value=":" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\devproj6\settings.py">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\frontend\apps.py">
+          <value>
+            <Attribute>
+              <option name="separator" value=":" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\reccomender\basicreccomender.py">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\store\models.py">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\store\templates\store\about.html">
+          <value>
+            <Attribute>
+              <option name="separator" value=":" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\store\templates\store\base.html">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\store\templates\store\home.html">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\store\templates\store\review_confirm_delete.html">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\store\templates\store\review_detail.html">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\store\views.py">
+          <value>
+            <Attribute>
+              <option name="separator" value=":" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\updatedbpy.py">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\users\apps.py">
+          <value>
+            <Attribute>
+              <option name="separator" value=":" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\users\forms.py">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\users\models.py">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\users\signals.py">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\users\templates\users\register.html">
+          <value>
+            <Attribute>
+              <option name="separator" value="|" />
+            </Attribute>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

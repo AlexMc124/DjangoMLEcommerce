@@ -1,0 +1,145 @@
+{% extends "store/base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-lg-8">
+        <div class="container-fluid-md p-3 border">
+            <h1> {{ object.title }} </h1>
+            <div class="border-top pt-3">
+            <article class="article-main">
+                    {% if object.imageUrl != '' and object.imageUrl != Null  %}
+                        <img class="w-100 p-3" src= {{ object.imageUrl }}>
+                    {% else %}
+                        <img class="w-100 p-3" src="/media/defaultpictures/default_missing_item.png">
+                    {% endif %}
+                    <div class="media-body">
+                        <div class="article-metadata">
+                            <a class="mr-2" href="#">{{ object.title }}</a>
+                            <small class="text-muted">{{ object.brand }}</small>
+                        </div>
+                        {% if object.description != "{}" %}
+                            <h4 class="article-title">{{ object.description }}</h4>
+                        {% else %}
+                            <h4 class="article-title">{{ object.title }}</h4>
+                        {% endif %}
+                            <p class="article-content">{{product.description}}</p>
+                            <p class="article-content">${{product.price|floatformat:2}}</p>
+                        {% if user.is_authenticated %}
+                                    {% if product in user.profile.cart.all %}
+                                        This is in your cart!
+                                    {% elif object in current_order_products %}
+                                        <a href="{% url 'order_summary' %}" class="article-content btn btn-warning">Go to cart</a>
+                                    {% else %}
+                                        <a href="{% url 'add_to_cart' product.id %}" class="article-content btn btn-warning p-2">Add to cart</a>
+                                    {% endif %}
+                                {% endif %}
+                    </div>
+            </article>
+            <div class="border-top pt-4"/>
+            <h1> Reviews </h1>
+            {% for r in review %}
+            <article class="media content-section">
+                    {% if r.profile.profile_image != '' and r.user.profile.profile_image != Null  %}
+                      <img class="rounded-circle account-img" src="/media/{{ r.user.profile.profile_image }}">
+                    {% else %}
+                      <img class="rounded-circle account-img" src="/media/defaultpictures/default.jpg">
+                    {% endif %}
+                    <div class="media-body">
+                        <div class="article-metadata">
+                          <a class="mr-2" href="{% url 'review-detail' r.id %}">Review by : {{ r.reviewerName }}</a>
+                        </div>
+                        <h4><a class="article-title" href="{% url 'product-detail' product.id %}">{{ r.overall }}</a></h4>
+                          <p class="article-content">{{ r.summary }}</p>
+                          <em class="article-content">{{ r.reviewText }}</em>
+                          {% if user.profile == r.reviewerID.profile %}
+                            <br>
+                            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'review-update' r.id %}">Edit your review</a>
+                            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'review-delete' r.id %}">Delete your review</a>
+                          {% endif %}
+                      </div>
+                      <p>{{ r.reviewTime }}</p>
+            </article>
+            {% endfor %}
+            {% if user.is_authenticated %}
+                <a class="h3" href="{% url 'review-create' object.id %}">Leave a Review for this Item</a>
+            {% endif %}
+            {% if also_buy|length != 0 %}
+            <h4> Customer who bought this also Viewed </h4>
+                {% for product in also_view %}
+                    <article class="media content-section">
+                    {% if product.imageUrl != '' and product.imageUrl != Null  %}
+                        <img class="p-2" width="100" height="120" src= {{ product.imageUrl }}>
+                    {% else %}
+                        <img class="rounded-circle account-img" width="100" height="120" src="media/defaultpictures/default_missing_item.png">
+                    {% endif %}
+                    <div class="media-body">
+                        <div class="article-metadata">
+                            <a class="mr-4" href="{% url 'product-detail' product.id %}">{{ product.title }}</a>
+                            <small class="text-muted">{{ product.brand }}</small>
+                        </div>
+                             <p class="article-content">${{product.price|floatformat:2}}</p>
+                            {% if user.is_authenticated %}
+                                    {% if product in user.profile.cart.all %}
+                                        This is in your cart!
+                                    {% elif object in current_order_products %}
+                                        <a href="{% url 'order_summary' %}" class="btn btn-warning">Go to cart</a>
+                                    {% else %}
+                                        <a href="{% url 'add_to_cart' product.id %}" class="btn btn-warning">Add to cart</a>
+                                    {% endif %}
+                                {% endif %}
+                        </div>
+                    </article>
+                {% endfor %}
+            {% endif %}
+            {% if also_buy|length != 0 %}
+                <h4> Customer who bought this also Bought</h4>
+                {% for product in also_buy %}
+                    <article class="media content-section">
+                    {% if product.imageUrl != '' and product.imageUrl != Null  %}
+                        <img class="p-2" width="100" height="120" src= {{ product.imageUrl }}>
+                    {% else %}
+                        <img class="rounded-circle account-img" src="/media/profile_pics/default_missing_item.png">
+                    {% endif %}
+                    <div class="media-body">
+                        <div class="article-metadata">
+                            <a class="mr-4" href="{% url 'product-detail' product.id %}">{{ product.title }}</a>
+                            <small class="text-muted">{{ product.brand }}</small>
+                        </div>
+                             <p class="article-content">${{product.price|floatformat:2}}</p>
+                            {% if user.is_authenticated %}
+                                    {% if product in user.profile.cart.all %}
+                                        This is in your cart!
+                                    {% elif object in current_order_products %}
+                                        <a href="{% url 'order_summary' %}" class="btn btn-warning">Go to cart</a>
+                                    {% else %}
+                                        <a href="{% url 'add_to_cart' product.id %}" class="btn btn-warning">Add to cart</a>
+                                    {% endif %}
+                                {% endif %}
+                        </div>
+                    </article>
+                {% endfor %}
+            {% endif %}
+        </div>
+        </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="container border">
+            <h3 class="text-center p-2">Items You'll Love!</h3>
+            {% for product in cbfproducts %}
+            <article class="media content-section">
+            {% if product.imageUrl != '' and product.imageUrl != Null  %}
+                <img class="p-2" width="100" height="120" src= {{ product.imageUrl }}>
+            {% endif %}
+            <div class="media-body">
+                <div class="article-metadata">
+                    <a class="mr-4" href="{% url 'product-detail' product.id %}">{{ product.title }}</a>
+                    <small class="text-muted">{{ product.brand }}</small>
+                </div>
+                     <p class="article-content">${{product.price|floatformat:2}}</p>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

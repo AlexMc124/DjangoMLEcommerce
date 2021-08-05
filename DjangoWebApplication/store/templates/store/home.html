@@ -1,0 +1,161 @@
+{% extends "store/base.html" %}
+{% block content %}
+<div class="w-100 container-fluid">
+    <div class="row">
+        <div class="col-xl-12">
+            <form class="input-group rounded" method="GET" action="search">
+                    <select type="search" name="category" placeholder="Filter By" class="selectpicker btn btn-default dropdown-toggle">
+                      {% for category, category_value in categories %}
+                        <option>{{ category_value }}</option>
+                      {% endfor %}
+                    </select>
+                    <input type="search" class="form-control rounded" placeholder="Search the Store!" aria-label="Search"
+                   type="search" name="search" />
+                  <button class="product" type="submit"> Search </button>
+            </form>
+            <br>
+            <!-- Start of the carousel -->
+            <div class="carousel slide" data-ride="carousel">
+              <div class="carousel-inner">
+                 {% for product in carousel %}
+                    <!-- item -->
+                        <div class="carousel-item text-center text-light mb-5 {% if forloop.first %} active{% endif %}">
+                            <article class="media content-section">
+                                {% if product.imageUrl != '' and product.imageUrl != Null  %}
+                                    <img class="p-2" width="100" height="120" src= {{ product.imageUrl }}>
+                                {% else %}
+                                    <img class="rounded-circle account-img" width="100" height="120" src="media/defaultpictures/default_missing_item.png">
+                                {% endif %}
+                              <div class="media-body">
+                                <div class="article-metadata">
+                                  <a class="mr-4" href="#">{{ product.title }}</a>
+                                  <small class="text-muted">{{ product.brand }}</small>
+                                </div>
+                                <h4><a class="article-title" href="{% url 'product-detail' product.id %}">{{ product.title }}</a></h4>
+                                <p class="article-content">${{product.price|floatformat:2}}</p>
+                              </div>
+                            </article>
+                        </div>
+                    <!-- end item -->
+                 {% endfor %}
+              </div>
+            </div>
+            {% if user.is_authenticated %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3>Products We think You'll like!</h3>
+                       {% for product in cfmlreccomend %}
+                            <article class="media content-section">
+                                {% if product.imageUrl != '' and product.imageUrl != Null  %}
+                                    <img class="p-2" width="100" height="120" src= {{ product.imageUrl }}>
+                                {% else %}
+                                    <img class="rounded-circle account-img" width="100" height="120" src="media/defaultpictures/default_missing_item.png">
+                                {% endif %}
+                                <div class="media-body">
+                                <div class="article-metadata">
+                                  <a class="mr-4" href="{% url 'product-detail' product.id %}">{{ product.title }}</a>
+                                  <small class="text-muted">{{ product.brand }}</small>
+                                </div>
+                                <h4><a class="article-title" href="{% url 'product-detail' product.id %}">{{ product.title }}</a></h4>
+                                <p class="article-content">${{product.price|floatformat:2}}</p>
+                                {% if user.is_authenticated %}
+                                    {% if product in user.profile.cart.all %}
+                                        This is in your cart!
+                                    {% elif object in current_order_products %}
+                                        <a href="{% url 'order_summary' %}" class="btn btn-warning">Go to cart</a>
+                                    {% else %}
+                                        <a href="{% url 'add_to_cart' product.id %}" class="btn btn-warning">Add to cart</a>
+                                    {% endif %}
+                                {% endif %}
+                              </div>
+                            </article>
+                       {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="row">
+                    <div class="col-md-6">
+                        <h3>Popular Items!</h3>
+                       {% for product in earlyreccomend %}
+                            <article class="media content-section">
+                                {% if product.imageUrl != '' and product.imageUrl != Null  %}
+                                    <img class="p-2" width="100" height="120" src= {{ product.imageUrl }}>
+                                {% else %}
+                                    <img class="rounded-circle account-img" width="100" height="120" src="media/defaultpictures/default_missing_item.png">
+                                {% endif %}
+                              <div class="media-body">
+                                <div class="article-metadata">
+                                  <a class="mr-4" href="#">{{ product.title }}</a>
+                                  <small class="text-muted">{{ product.brand }}</small>
+                                </div>
+                                <h4><a class="article-title" href="{% url 'product-detail' product.id %}">{{ product.title }}</a></h4>
+                                <p class="article-content">${{product.price|floatformat:2}}</p>
+                                  {% if user.is_authenticated %}
+                                    {% if product in user.profile.cart.all %}
+                                        This is in your cart!
+                                    {% elif object in current_order_products %}
+                                        <a href="{% url 'order_summary' %}" class="btn btn-warning">Go to cart</a>
+                                    {% else %}
+                                        <a href="{% url 'add_to_cart' product.id %}" class="btn btn-warning">Add to cart</a>
+                                    {% endif %}
+                                {% endif %}
+                              </div>
+                            </article>
+                       {% endfor %}
+                    </div>
+                {% endif %}
+                <div class="col-md-6">
+                    <h3>All Items!</h3>
+                    {% for product in products %}
+                        <article class="media content-section">
+                          {% if product.imageUrl != '' and product.imageUrl != Null  %}
+                                <img class="p-2" width="100" height="120" src= {{ product.imageUrl }}>
+                          {% else %}
+                                <img class="rounded-circle account-img" width="100" height="120" src="media/defaultpictures/default_missing_item.png">
+                          {% endif %}
+                          <div class="media-body">
+                            <div class="article-metadata">
+                              <a class="mr-2" href="#">{{ product.title }}</a>
+                              <small class="text-muted">{{ product.brand }}</small>
+                            </div>
+                            <h4><a class="article-title" href="{% url 'product-detail' product.id %}">{{ product.title }}</a></h4>
+                            <p class="article-content">${{product.price|floatformat:2}}</p>
+                              {% if user.is_authenticated %}
+                                  {% if product in user.profile.cart.all %}
+                                    This is in your cart!
+                                  {% elif object in current_order_products %}
+                                    <a href="{% url 'order_summary' %}" class="btn btn-warning">Go to cart</a>
+                                  {% else %}
+                                    <a href="{% url 'add_to_cart' product.id %}" class="btn btn-warning">Add to cart</a>
+                                  {% endif %}
+                              {% endif %}
+                          </div>
+                        </article>
+                    {%endfor%}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center">
+        {% if is_paginated %}
+                {% if page_obj.has_previous %}
+                    <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+                    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                        <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+                    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                {% endif %}
+            {% endif %}
+        </div>
+</div>
+
+{% endblock content %}

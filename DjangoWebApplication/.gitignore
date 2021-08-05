@@ -1,0 +1,7 @@
+/db.sqlite3
+/DjangoModel.pk2
+DjangoModel.pk2
+!*.pk2
+/media/profile_pics/
+/MongoScripts.txt
+/updatedbpy.py

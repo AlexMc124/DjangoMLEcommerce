@@ -1,0 +1,24 @@
+{% extends "store/base.html" %}
+{% block content %}
+<div class="row">
+    <div class="p-3 border">
+        <div class="container-fluid-md p-3 border">
+        <h1> {{ object.summary }} </h1><small class="text-muted">{{ object.reviewTime }}</small>
+        <article class="article-main">
+                <img width="100" height="120" class="rounded-circle account-img" src="/media/{{ object.reviewerID.profile.profile_image }}">
+                <div class="media-body">
+                    <div class="article-metadata">
+                        <a class="h4" href="#">{{ object.reviewerName }}</a>
+                        <small class="text-muted">{{ object.brand }}</small>
+                    </div>
+                    <em>{{ object.reviewText }}</em>
+                        <p class="article-content">{{object.price|floatformat:2}}</p>
+                </div>
+        </article>
+        <article class="article-main">
+                <h4><a href="{% url 'store-home' %}">Back to Home</a></h4>
+        </article>
+        </div>
+    </div>
+</div>
+{% endblock content %}

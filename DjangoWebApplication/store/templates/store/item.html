@@ -1,0 +1,16 @@
+{% extends "store/base.html" %}
+{% block content %}
+    {% for product in products %}
+        <article class="media content-section">
+          <img class="rounded-circle article-img" src={{ product.imageUrl}}>
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#}">{{ product.title }}</a>
+              <small class="text-muted">{{ product.brand }}</small>
+            </div>
+            <h4><a class="article-title" href="{% url 'store-item' %}">{{ product.title }}</a></h4>
+            <p class="article-content">{{product.price|floatformat:2}}</p>
+          </div>
+        </article>
+    {%endfor%}
+{% endblock content %}

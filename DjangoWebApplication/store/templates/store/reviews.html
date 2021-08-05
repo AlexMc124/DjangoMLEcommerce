@@ -1,0 +1,16 @@
+{% extends "store/base.html" %}
+{% block content %}
+    {% for review in reviews %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="{% url 'store-item' %}">{{ review.summary }}</a>
+              <small class="text-muted">{{ review.overall }}</small>
+            </div>
+            <h4><a class="article-title" href="{% url 'store-item' %}">{{ review.reviewTime }}</a></h4>
+            <p class="article-content">{{review.reviewText}} {{review.overall}}</p>
+
+          </div>
+        </article>
+    {%endfor%}
+{% endblock content %}

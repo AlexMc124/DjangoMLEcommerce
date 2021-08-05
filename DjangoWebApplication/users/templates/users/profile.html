@@ -1,0 +1,60 @@
+{% extends "store/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="col-lg-5">
+    <div class="row">
+    <div class="content-section">
+      <div class="media">
+        {% if user.profile.profile_image.url != '' and user.profile.profile_image.url != Null  %}
+          <img class="rounded-circle account-img" src= {{ user.profile.profile_image.url }}>
+        {% else %}
+          <img class="rounded-circle account-img" src="media/default/default.jpg">
+        {% endif %}
+          <div class="media-body">
+          <h2 class="account-heading">{{ user.username }}</h2>
+          <p class="text-secondary">{{ user.email }}</p>
+        </div>
+      </div>
+      <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Profile Info</legend>
+                {{ u_form|crispy }}
+                {{ p_form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Update</button>
+            </div>
+        </form>
+    </div>
+    </div> </div>
+    <div class="col-lg-7">
+    {% for r, p in randp %}
+        <div class="row">
+        <article class="media content-section">
+            {% if user.profile.profile_image.url != '' and user.profile.profile_image.url != Null  %}
+                <img class="rounded-circle account-img" src= {{ user.profile.profile_image.url }}>
+            {% else %}
+                <img class="rounded-circle account-img" src="/media/defaultpictures/default.jpg">
+            {% endif %}
+            <div class="media-body">
+                <div class="article-metadata">
+                    <a class="mr-2" href="{% url 'review-detail' r.id %}">Review by : {{ r.reviewerName }}</a>
+                </div>
+                    <a href="{% url 'product-detail' p.id %}" class="h5"><strong> Your Review For : </strong>{{ p.title }} </a>
+                    <h4><a class="article-title" href="">{{ r.overall }}</a></h4>
+                    <p class="article-content">{{ r.summary }}</p>
+                    <em class="article-content">{{ r.reviewText }}</em>
+                    {% if user.profile.reviewerID == r.reviewerID.profile.reviewerID %}
+                        <br>
+                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'review-update' r.id %}">Edit your review</a>
+                        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'review-delete' r.id %}">Delete your review</a>
+                    {% endif %}
+
+                    </div>
+                    <p>{{ r.reviewTime }}</p>
+        </article>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock content %}
